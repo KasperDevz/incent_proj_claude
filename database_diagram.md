@@ -96,6 +96,23 @@ AWS RDS — PostgreSQL
 │ updated_at TIMESTAMPTZ
 └─────────────────────┘
 
+┌──────────────────────────────────────┐
+│           otp_requests               │
+├──────────────────────────────────────┤
+│ id             UUID  PK              │
+│ user_id        UUID  FK→users        │◄── agent only
+│ otp_code       VARCHAR(6)            │◄── bcrypt hash in prod, plain in dev
+│ expires_at     TIMESTAMPTZ           │◄── now + 10 min
+│ used_at        TIMESTAMPTZ           │◄── NULL = not yet used
+│ attempt_count  SMALLINT DEFAULT 0    │◄── lock at >= 5
+│ ip_address     VARCHAR(45)           │
+│ is_active      BOOLEAN               │◄── FALSE = locked out
+│ created_by     VARCHAR(255)          │
+│ created_at     TIMESTAMPTZ           │
+│ updated_by     VARCHAR(255)          │
+│ updated_at     TIMESTAMPTZ           │
+└──────────────────────────────────────┘
+
 ┌──────────────────────────────────┐
 │           sync_logs              │
 ├──────────────────────────────────┤
@@ -257,6 +274,38 @@ AWS RDS — PostgreSQL
 | `updated_at` | TIMESTAMPTZ | | |
 
 **Indexes:** `idx_sync_logs_started_at`, `idx_sync_logs_status`
+
+---
+
+### `otp_requests`
+
+| Column | Type | Constraints | Description |
+|--------|------|-------------|-------------|
+| `id` | UUID | PK, DEFAULT gen_random_uuid() | Primary key |
+| `user_id` | UUID | FK → users.id, NOT NULL | Agent who requested OTP |
+| `otp_code` | VARCHAR(6) | NOT NULL | Plain in dev, bcrypt hash in prod |
+| `expires_at` | TIMESTAMPTZ | NOT NULL | Created_at + 10 minutes |
+| `used_at` | TIMESTAMPTZ | NULLABLE | Set when OTP verified successfully |
+| `attempt_count` | SMALLINT | NOT NULL, DEFAULT 0 | Incremented on each wrong attempt |
+| `ip_address` | VARCHAR(45) | NULLABLE | Requester IP (IPv4 or IPv6) |
+| `is_active` | BOOLEAN | NOT NULL, DEFAULT TRUE | FALSE = locked after 5 failed attempts |
+| `created_by` | VARCHAR(255) | NOT NULL | |
+| `created_at` | TIMESTAMPTZ | NOT NULL, DEFAULT NOW() | |
+| `updated_by` | VARCHAR(255) | | |
+| `updated_at` | TIMESTAMPTZ | | |
+
+**Indexes:** `idx_otp_requests_user_id`, `idx_otp_requests_expires_at`
+
+**Valid OTP query:**
+```sql
+SELECT * FROM otp_requests
+WHERE user_id = $1
+  AND used_at IS NULL
+  AND expires_at > NOW()
+  AND is_active = TRUE
+ORDER BY created_at DESC
+LIMIT 1;
+```
 
 ---
 

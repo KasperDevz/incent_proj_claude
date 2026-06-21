@@ -137,6 +137,7 @@ See `database_diagram.md` for full schema. Summary:
 | `sales` | Sales transactions per customer (amount in satang) |
 | `goal_configs` | Per-agent per-year goal configuration |
 | `goal_steps` | 4–5 thresholds within a goal config |
+| `otp_requests` | OTP tokens for agent email login (expires 10 min, max 5 attempts) |
 | `sync_logs` | History of every data sync run |
 
 Every table has: `is_active`, `created_by`, `created_at`, `updated_by`, `updated_at`.
@@ -178,12 +179,41 @@ npx shadcn@latest add <component> # Add a shadcn/ui component
 - Never edit files under `components/ui/` — extend via `className` + Tailwind
 - Use `cn()` from `lib/utils.ts` for conditional class names
 
+## Authentication
+
+See `auth_flow.md` for full flow diagrams and implementation details.
+
+| Role | Method | Controlled by |
+|------|--------|--------------|
+| Admin | Email + Password (basic) or Azure AD SSO | `ADMIN_AUTH_MODE=basic\|azure` |
+| Agent | Email OTP (6 digits, 10 min expiry, max 5 attempts) | always OTP |
+
+**Test mode:** when `NODE_ENV !== 'production'`, the OTP is displayed directly on the login page — no email service needed. The banner is rendered server-side and will never appear in production builds.
+
+**Azure AD:** only loaded when `ADMIN_AUTH_MODE=azure`. NextAuth verifies the Microsoft account email exists in the `users` table before creating a session.
+
 ## Environment Variables
 
 ```bash
 # Auth
 NEXTAUTH_SECRET=          # Random 32-char string
 NEXTAUTH_URL=             # App base URL (http://localhost:3000 in dev)
+
+# Admin auth mode: "basic" | "azure"
+ADMIN_AUTH_MODE="basic"
+
+# Azure AD (only required when ADMIN_AUTH_MODE=azure)
+AZURE_AD_CLIENT_ID=""
+AZURE_AD_CLIENT_SECRET=""
+AZURE_AD_TENANT_ID=""
+
+# OTP settings
+OTP_EXPIRY_MINUTES=10
+OTP_MAX_ATTEMPTS=5
+
+# Email service for OTP (leave empty = show OTP on UI instead)
+EMAIL_SERVICE_URL=""
+EMAIL_SERVICE_KEY=""
 
 # AWS API Gateway (production)
 AWS_API_GATEWAY_URL=      # https://<id>.execute-api.<region>.amazonaws.com/<stage>
