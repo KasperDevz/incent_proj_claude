@@ -1,0 +1,41 @@
+[
+  {
+    "id": "10000000-0000-0000-0000-000000000001",
+    "user_id": "00000000-0000-0000-0000-000000000002",
+    "first_name": "Somchai",
+    "last_name": "Jaidee",
+    "employee_code": "EMP001",
+    "phone": "081-000-0001",
+    "is_active": true,
+    "created_by": "admin@incent.dev",
+    "created_at": "2025-01-02T00:00:00Z",
+    "updated_by": null,
+    "updated_at": null
+  },
+  {
+    "id": "10000000-0000-0000-0000-000000000002",
+    "user_id": "00000000-0000-0000-0000-000000000003",
+    "first_name": "Nattaya",
+    "last_name": "Suksombat",
+    "employee_code": "EMP002",
+    "phone": "081-000-0002",
+    "is_active": true,
+    "created_by": "admin@incent.dev",
+    "created_at": "2025-01-02T00:00:00Z",
+    "updated_by": null,
+    "updated_at": null
+  },
+  {
+    "id": "10000000-0000-0000-0000-000000000003",
+    "user_id": "00000000-0000-0000-0000-000000000004",
+    "first_name": "Wichai",
+    "last_name": "Tangkul",
+    "employee_code": "EMP003",
+    "phone": "081-000-0003",
+    "is_active": true,
+    "created_by": "admin@incent.dev",
+    "created_at": "2025-01-02T00:00:00Z",
+    "updated_by": null,
+    "updated_at": null
+  }
+]

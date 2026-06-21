@@ -1,0 +1,32 @@
+[
+  {
+    "id": "30000000-0000-0000-0000-000000000001",
+    "agent_id": "10000000-0000-0000-0000-000000000001",
+    "year": 2025,
+    "is_active": true,
+    "created_by": "admin@incent.dev",
+    "created_at": "2025-01-03T00:00:00Z",
+    "updated_by": null,
+    "updated_at": null
+  },
+  {
+    "id": "30000000-0000-0000-0000-000000000002",
+    "agent_id": "10000000-0000-0000-0000-000000000002",
+    "year": 2025,
+    "is_active": true,
+    "created_by": "admin@incent.dev",
+    "created_at": "2025-01-03T00:00:00Z",
+    "updated_by": null,
+    "updated_at": null
+  },
+  {
+    "id": "30000000-0000-0000-0000-000000000003",
+    "agent_id": "10000000-0000-0000-0000-000000000003",
+    "year": 2025,
+    "is_active": true,
+    "created_by": "admin@incent.dev",
+    "created_at": "2025-01-03T00:00:00Z",
+    "updated_by": null,
+    "updated_at": null
+  }
+]

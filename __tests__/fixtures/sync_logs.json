@@ -1,0 +1,47 @@
+[
+  {
+    "id": "60000000-0000-0000-0000-000000000001",
+    "triggered_by": "admin@incent.dev",
+    "started_at": "2025-01-05T08:00:00Z",
+    "completed_at": "2025-01-05T08:00:12Z",
+    "status": "success",
+    "records_fetched": 8,
+    "records_upserted": 8,
+    "error_message": null,
+    "is_active": true,
+    "created_by": "admin@incent.dev",
+    "created_at": "2025-01-05T08:00:00Z",
+    "updated_by": null,
+    "updated_at": null
+  },
+  {
+    "id": "60000000-0000-0000-0000-000000000002",
+    "triggered_by": "admin@incent.dev",
+    "started_at": "2025-06-01T09:00:00Z",
+    "completed_at": "2025-06-01T09:00:08Z",
+    "status": "success",
+    "records_fetched": 3,
+    "records_upserted": 3,
+    "error_message": null,
+    "is_active": true,
+    "created_by": "admin@incent.dev",
+    "created_at": "2025-06-01T09:00:00Z",
+    "updated_by": null,
+    "updated_at": null
+  },
+  {
+    "id": "60000000-0000-0000-0000-000000000003",
+    "triggered_by": "admin@incent.dev",
+    "started_at": "2025-06-10T14:00:00Z",
+    "completed_at": "2025-06-10T14:00:05Z",
+    "status": "failed",
+    "records_fetched": 0,
+    "records_upserted": 0,
+    "error_message": "External API timeout after 5000ms",
+    "is_active": true,
+    "created_by": "admin@incent.dev",
+    "created_at": "2025-06-10T14:00:00Z",
+    "updated_by": null,
+    "updated_at": null
+  }
+]
